@@ -14,7 +14,7 @@ import { ProductRecommendation } from "../components/ProductRecommendation";
 import CatalogSidebarFilters from "../utilityComponents/CatalogSidebarFilters";
 import { ProgressBar } from "./orders/ProgressBar";
 import { useFetch } from "../hooks/useFetch";
-import { useProductCatalogStore } from "../store/useProductCatlog";
+import { useProductCatalogStore } from "../store/useProductCatalogStore";
 import { transformVariantsToProducts } from "../utilityComponents/transformVariantsToProducts";
 
 export default function NewProductCatalog({

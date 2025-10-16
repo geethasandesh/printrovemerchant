@@ -38,16 +38,16 @@ export function transformVariantToProduct(variant: any): Product {
   
   // Look for common size patterns
   const sizePatterns = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL'];
-  const foundSize = comboParts.find(part => 
-    sizePatterns.some(pattern => part.toUpperCase().includes(pattern))
+  const foundSize = comboParts.find((part: string) => 
+    sizePatterns.some((pattern: string) => part.toUpperCase().includes(pattern))
   );
   if (foundSize) {
     size = foundSize.toUpperCase();
   }
   
   // Look for color patterns (everything else that's not a size)
-  const foundColor = comboParts.find(part => 
-    !sizePatterns.some(pattern => part.toUpperCase().includes(pattern))
+  const foundColor = comboParts.find((part: string) => 
+    !sizePatterns.some((pattern: string) => part.toUpperCase().includes(pattern))
   );
   if (foundColor) {
     color = foundColor;
@@ -85,7 +85,7 @@ export function transformVariantToProduct(variant: any): Product {
   const inStock = available > 0 || onHand > 0;
   
   const transformedProduct = {
-    id: productId,
+    id: parseInt(productId) || 0,
     name: `${title} - ${variantCombo}`,
     colorImageMap,
     sizes: [size],
