@@ -34,6 +34,10 @@ export default function NewProductCatalog({
       // Transform variant data to match expected Product interface
       const transformedProducts = transformVariantsToProducts(data.data);
       console.log('Transformed products:', transformedProducts.length);
+      // Extra debug for thumbnails on the add-product page
+      try {
+        console.debug('[add-product] First 2 transformed products', transformedProducts.slice(0, 2));
+      } catch {}
       setProducts(transformedProducts);
     }
   }, [data, setProducts]);
@@ -51,8 +55,8 @@ export default function NewProductCatalog({
       // Products are now transformed to match the Product interface
       return (
         <ProductRecommendation
-          key={product.id}
-          id={product.id}
+          key={product._id || String(product.id)}
+          id={product._id || product.id}
           _id={product._id}
           title={product.name}
           price={product.price}
