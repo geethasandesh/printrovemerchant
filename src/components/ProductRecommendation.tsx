@@ -88,7 +88,7 @@ export const ProductRecommendation = ({
               // Fallback to placeholder once
               if (!img.dataset.fallback) {
                 img.dataset.fallback = '1';
-                img.src = '/product-img-white.png';
+                img.src = '/product-img-white.png?fb=1';
               }
             }}
             onLoad={(e) => {

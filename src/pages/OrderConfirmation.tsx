@@ -1,18 +1,22 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-interface OrderData {
+interface ConfirmationData {
   orderNumber: string;
-  productConfig: any;
-  shippingInfo: any;
-  orderSummary: any;
+  etaDays?: number;
+  trackingNumber?: string;
+  shippingMode?: string;
+  total?: number;
+  productTitle?: string;
+  quantity?: number;
 }
 
 const OrderConfirmation: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   
-  const { orderNumber, productConfig, orderSummary } = location.state as OrderData || {};
+  const data = (location.state as ConfirmationData) || {} as ConfirmationData;
+  const { orderNumber } = data;
 
   if (!orderNumber) {
     navigate('/product-catalog');
@@ -180,17 +184,23 @@ const OrderConfirmation: React.FC = () => {
               <span className="font-medium">{orderNumber}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Product:</span>
-              <span className="font-medium">{productConfig?.color} {productConfig?.size}</span>
+              <span className="text-gray-600">Status:</span>
+              <span className="font-medium">Processing</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Quantity:</span>
-              <span className="font-medium">{productConfig?.quantity}</span>
+              <span className="text-gray-600">ETA:</span>
+              <span className="font-medium">{data.etaDays || 5} days</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">Total:</span>
-              <span className="font-medium">USD {orderSummary?.total?.toFixed(2)}</span>
+              <span className="font-medium">₹{(data.total || 0).toFixed(2)}</span>
             </div>
+            {data.trackingNumber && (
+              <div className="flex justify-between">
+                <span className="text-gray-600">Tracking:</span>
+                <span className="font-medium">{data.trackingNumber}</span>
+              </div>
+            )}
           </div>
         </div>
 

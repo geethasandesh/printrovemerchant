@@ -72,12 +72,30 @@ export function transformVariantToProduct(variant: any): Product {
   const hexColor = colorHexMap[color.toLowerCase()] || '#CCCCCC';
   
   // Use thumbnail URL if available, otherwise use default
-  // Prefer variant.thumbnailUrl, else try first product thumbnail from backend shape
+  // Prefer variant.thumbnailUrl, else try various common locations including signedUrl
   const thumbnailUrl =
     variant.thumbnailUrl ||
+    variant.thumbnail?.url ||
+    variant.thumbnail?.signedUrl ||
     (Array.isArray(variant.productThumbnails) && variant.productThumbnails[0]?.url) ||
+    (Array.isArray(variant.productThumbnails) && variant.productThumbnails[0]?.signedUrl) ||
     (Array.isArray(variant.thumbnails) && variant.thumbnails[0]?.url) ||
+    (Array.isArray(variant.thumbnails) && variant.thumbnails[0]?.signedUrl) ||
+    variant.product?.thumbnails?.[0]?.url ||
+    variant.product?.thumbnails?.[0]?.signedUrl ||
     '/product-img-white.png';
+
+  const addCacheBuster = (url: string, pid: string) => {
+    try {
+      const u = new URL(url, window.location.origin);
+      u.searchParams.set('pid', String(pid));
+      return u.toString();
+    } catch {
+      // If it's a relative or data URL, append manually
+      return url.includes('?') ? `${url}&pid=${pid}` : `${url}?pid=${pid}`;
+    }
+  };
+  const finalThumbnail = addCacheBuster(thumbnailUrl, productId);
 
   // Debug: log how thumbnail was resolved
   try {
@@ -91,13 +109,13 @@ export function transformVariantToProduct(variant: any): Product {
       fromThumbnails: Array.isArray(variant.thumbnails)
         ? variant.thumbnails[0]?.url
         : undefined,
-      final: thumbnailUrl,
+      final: finalThumbnail,
     });
   } catch {}
   
   colorImageMap[color.toLowerCase()] = {
     color: hexColor,
-    path: thumbnailUrl
+    path: finalThumbnail
   };
   
   // Determine if product is in stock
