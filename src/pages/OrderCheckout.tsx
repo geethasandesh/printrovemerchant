@@ -216,76 +216,8 @@ export function OrderCheckout() {
     });
   };
 
-  // This function is used for creating order via API (reserved for future use)
-  // Prefixed with underscore to indicate intentionally unused
-  const _handleCreateOrder = async (): Promise<void> => {
-    // payload per merchantOrder.service.ts
-    const API_URL = import.meta.env.VITE_APP_API_URL;
-    const base = (API_URL || '').replace(/\/+$/, '');
-    const url = `${base}/merchant-orders`;
-
-    const orderPayload = {
-      merchantId: 'current-merchant',
-      orderItems: [
-        {
-          productId: location?.state?.productConfig?.productId,
-          productTitle: location?.state?.productData?.title,
-          variant: {
-            color: location?.state?.productConfig?.color,
-            size: location?.state?.productConfig?.size,
-          },
-          quantity: Number(formData.otherCharges) ? Number(formData.otherCharges) : location?.state?.productConfig?.quantity || 1,
-          unitPrice: location?.state?.unitPrice || subtotalFromDesign,
-          subtotal: subtotalFromDesign,
-          designLayers: location?.state?.productConfig?.design,
-          printType: location?.state?.productConfig?.printType,
-          printPosition: location?.state?.productConfig?.position,
-        },
-      ],
-      subtotal: subtotalFromDesign,
-      shippingCost: Number(formData.shippingCharges),
-      taxAmount: 0,
-      totalAmount: subtotalFromDesign + Number(formData.shippingCharges),
-      shippingMode: shippingMode === 'self' ? 'self-shipping' : shippingMode,
-      shippingAddress: {
-        fullName: formData.fullName,
-        email: '',
-        phone: formData.phoneNumber,
-        addressLine1: formData.addressLine1,
-        addressLine2: formData.addressLine2,
-        city: formData.city,
-        state: formData.state,
-        postalCode: formData.pincode,
-        country: formData.country || 'India',
-      },
-      billingAddress: {
-        fullName: formData.fullName,
-        email: '',
-        phone: formData.phoneNumber,
-        addressLine1: formData.addressLine1,
-        addressLine2: formData.addressLine2,
-        city: formData.city,
-        state: formData.state,
-        postalCode: formData.pincode,
-        country: formData.country || 'India',
-      },
-      sameAsShipping: true,
-      selfShippingData: shippingMode === 'self' ? {
-        courierName: '',
-        awbNumber: '',
-        courierPhone: '',
-        pickupAddress: formData.addressLine1,
-        pickupContactName: formData.fullName,
-        pickupContactPhone: formData.phoneNumber,
-        estimatedPickupDate: new Date(),
-      } : undefined,
-      paymentMethod: shippingMode === 'cod' ? 'cod' : 'upi',
-      trackingEnabled: shippingMode !== 'self',
-      source: 'web',
-    };
-
-    await axios.post(url, orderPayload, { headers: { 'Content-Type': 'application/json' } });
-  };
+  // TODO: Add handleCreateOrder function when API integration is ready
+  // This will handle order creation via the merchant-orders endpoint
 
   return (
     <div className="h-screen flex flex-col">
