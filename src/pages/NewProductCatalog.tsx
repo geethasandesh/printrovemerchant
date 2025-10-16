@@ -19,9 +19,11 @@ import { useProductCatalogStore } from "../store/useProductCatlog";
 export default function NewProductCatalog({
   currentStatus,
   statusSteps,
+  nextPage,
 }: {
   currentStatus: string;
   statusSteps: string[];
+  nextPage?: string;
 }) {
   // Fetch only active products for merchant catalog
   const { data } = useFetch(`/products/all?status=active`, 0);

@@ -117,7 +117,6 @@ export function OrderCheckout() {
 
   // Files for self shipping
   const [selfLabelFile, setSelfLabelFile] = useState<File | null>(null);
-  const [invoiceFile, setInvoiceFile] = useState<File | null>(null);
   const [errors, setErrors] = useState<Record<string, string | undefined>>({});
 
   // Subtotal passed from previous step
@@ -217,8 +216,9 @@ export function OrderCheckout() {
     });
   };
 
-  // TODO: This function should be connected to a button/form submission
-  const _handleCreateOrder = async (): Promise<void> => {
+  // This function is used for creating order via API (reserved for future use)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleCreateOrder = async (): Promise<void> => {
     // payload per merchantOrder.service.ts
     const API_URL = import.meta.env.VITE_APP_API_URL;
     const base = (API_URL || '').replace(/\/+$/, '');
@@ -352,7 +352,11 @@ export function OrderCheckout() {
                             <input
                               type="file"
                               accept="application/pdf"
-                              onChange={(e) => setInvoiceFile(e.target.files?.[0] || null)}
+                              onChange={(e) => {
+                                const file = e.target.files?.[0] || null;
+                                // TODO: Handle invoice file upload
+                                console.log('Invoice file selected:', file);
+                              }}
                             />
                             <div className="text-[11px] text-gray-500 mt-1">Accepts PDF</div>
                           </div>

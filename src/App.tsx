@@ -63,6 +63,7 @@ function App() {
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/add-product" element={<NewProductCatalog currentStatus="Product" statusSteps={['Product', 'Shipping', 'Review & Pay']} nextPage="/add-product/edit" />} />
             <Route path="/add-product/edit" element={<ProductProgress currentStatus="Product" statusSteps={['Product', 'Shipping', 'Review & Pay']} nextPage="/add-product/checkout" />} />
+            {/* ProductProgress component uses nextPage prop */}
             <Route path="/add-product/shipping" element={<NewProductCatalog currentStatus="Shipping" statusSteps={['Product', 'Shipping', 'Review & Pay']} nextPage="/add-product/review" />} />
             <Route path="/add-product/review" element={<NewProductCatalog currentStatus="Review & Pay" statusSteps={['Product', 'Shipping', 'Review & Pay']} nextPage="/" />} />
             <Route path="/add-product/checkout" element={<OrderCheckout />} />
@@ -93,8 +94,8 @@ function App() {
             <Route path="/store-connect/1" element={<StoreConnect1 />} />
             <Route path="/store-connect/2" element={<StoreConnect2 />} />
             <Route path="/store-connect/edit-price" element={<StoreConnectEditPrice />} />
-            <Route path="/product-progress" element={<ProductProgress currentStatus="Product" statusSteps={['Product', 'Design', 'Mockups', 'Details', 'Pricing']} />} />
-            <Route path="/product-progress/product" element={<ProductProgress currentStatus="Product" statusSteps={['Product', 'Design', 'Mockups', 'Details', 'Pricing']} />} />
+            <Route path="/product-progress" element={<ProductProgress currentStatus="Product" statusSteps={['Product', 'Design', 'Mockups', 'Details', 'Pricing']} nextPage="/product-progress/mockups" />} />
+            <Route path="/product-progress/product" element={<ProductProgress currentStatus="Product" statusSteps={['Product', 'Design', 'Mockups', 'Details', 'Pricing']} nextPage="/product-progress/mockups" />} />
             <Route path="/product-progress/mockups" element={<ProductMockups />} />
             <Route path="/product-progress/details" element={<ProductDetails />} />
             <Route path="/product-progress/catolog" element={<NewProductCatalog currentStatus="Product" statusSteps={['Product', 'Design', 'Mockups', 'Details', 'Pricing']} />} />
