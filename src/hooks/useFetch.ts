@@ -41,8 +41,10 @@ export const useFetch = (endpoint: string, refreshDep: number) => {
       });
 
       if (res.status === 200) {
+        console.log('✅ API Response received:', res.data);
         setData(res.data);
       } else {
+        console.error('❌ API Response error:', res.status, res.statusText);
         throw new Error("Failed to fetch data.");
       }
       } catch (err: unknown) {

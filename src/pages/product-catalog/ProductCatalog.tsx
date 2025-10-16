@@ -22,15 +22,23 @@ export function ProductCatalog({ navbarHidden = false }: { navbarHidden?: boolea
   console.log('Fetched products:', data);
 
   useEffect(() => {
+    console.log('🔄 ProductCatalog useEffect triggered with data:', data);
+    
     // Use fetched data if available, otherwise fallback to hardcoded products
     if (data?.data && Array.isArray(data.data)) {
-      console.log('Setting products from API:', data.data.length);
+      console.log('✅ Setting products from API:', data.data.length);
+      console.log('📊 Raw API data structure:', data);
+      console.log('📋 First variant sample:', data.data[0]);
+      
       // Transform variant data to match expected Product interface
       const transformedProducts = transformVariantsToProducts(data.data);
-      console.log('Transformed products:', transformedProducts.length);
+      console.log('🔄 Transformed products count:', transformedProducts.length);
+      console.log('📋 First transformed product:', transformedProducts[0]);
+      
       setProducts(transformedProducts);
     } else {
-      console.log('Using fallback products');
+      console.log('⚠️ Using fallback products - API data not available');
+      console.log('🔍 Data structure received:', data);
       setProducts(productCatalogProducts);
     }
   }, [data, setProducts]);

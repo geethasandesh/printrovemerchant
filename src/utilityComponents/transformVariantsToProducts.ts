@@ -4,12 +4,23 @@ import { Product } from '../store/products';
  * Transform ProductVariant data from admin API to match the expected Product interface
  */
 export function transformVariantToProduct(variant: any): Product {
+  console.log('🔍 Transforming variant:', variant);
+  
   // Extract product information from variant
   const productId = variant.productId || variant._id;
   const title = variant.title || 'Unnamed Product';
   const description = variant.description || '';
   const variantCombo = variant.variantCombo || '';
   const sku = variant.sku || '';
+  
+  console.log('📋 Extracted data:', {
+    productId,
+    title,
+    description,
+    variantCombo,
+    sku,
+    variantKeys: Object.keys(variant)
+  });
   
   // Extract pricing information
   const price = parseFloat(variant.price || '0');
@@ -73,7 +84,7 @@ export function transformVariantToProduct(variant: any): Product {
   const onHand = variant.onHand || 0;
   const inStock = available > 0 || onHand > 0;
   
-  return {
+  const transformedProduct = {
     id: productId,
     name: `${title} - ${variantCombo}`,
     colorImageMap,
@@ -88,16 +99,25 @@ export function transformVariantToProduct(variant: any): Product {
     inStock,
     restockDate: !inStock ? new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] : undefined
   };
+  
+  console.log('✅ Transformed product:', transformedProduct);
+  return transformedProduct;
 }
 
 /**
  * Transform array of ProductVariant objects to Product array
  */
 export function transformVariantsToProducts(variants: any[]): Product[] {
+  console.log('🚀 transformVariantsToProducts called with:', variants);
+  
   if (!Array.isArray(variants)) {
-    console.warn('transformVariantsToProducts: input is not an array', variants);
+    console.warn('❌ transformVariantsToProducts: input is not an array', variants);
     return [];
   }
   
-  return variants.map(transformVariantToProduct);
+  console.log(`📦 Processing ${variants.length} variants...`);
+  const transformed = variants.map(transformVariantToProduct);
+  console.log('🎯 Final transformed products:', transformed);
+  
+  return transformed;
 }
