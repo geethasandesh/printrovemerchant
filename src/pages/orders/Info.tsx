@@ -15,7 +15,15 @@ export function Info() {
 
     // Fetch order details from API
     const { data, isLoading } = useFetch(`/merchant-orders/6831e61f2aad0c7057421664/orders/${orderId}`, orderId ? 1 : 0);
-    const orderDetails = (data && typeof data === 'object' && 'data' in data) ? (data as any).data : undefined;
+    const apiOrder = (data && typeof data === 'object' && 'data' in data) ? (data as any).data : undefined;
+    // Fallback to local order cache created during checkout if API returns nothing
+    const localOrder = (() => {
+        try {
+            const arr = JSON.parse(localStorage.getItem('localOrders') || '[]');
+            return Array.isArray(arr) ? arr.find((o: any) => o.orderId === orderId) : undefined;
+        } catch { return undefined; }
+    })();
+    const orderDetails = apiOrder || localOrder;
     console.log({orderDetails});
     const statusSteps = ['Created', 'In Production', 'Fulfilled', 'Delivered'];
 
