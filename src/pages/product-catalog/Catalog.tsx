@@ -42,8 +42,8 @@ export function Catalog() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredProducts.map((product) => (
           <ProductRecommendation
-            key={product.id}
-            id={String(product.id)}
+            key={(product as any)._id || String(product.id)}
+            id={(product as any)._id || String(product.id)}
             _id={product._id}
             title={product.name}
             price={product.price}

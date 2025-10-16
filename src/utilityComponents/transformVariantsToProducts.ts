@@ -7,7 +7,7 @@ export function transformVariantToProduct(variant: any): Product {
   console.log('🔍 Transforming variant:', variant);
   
   // Extract product information from variant
-  const productId = variant.productId || variant._id;
+  const productId = variant.productId || variant._id?.toString?.() || String(variant._id || '');
   const title = variant.title || 'Unnamed Product';
   const description = variant.description || '';
   const variantCombo = variant.variantCombo || '';
@@ -72,7 +72,12 @@ export function transformVariantToProduct(variant: any): Product {
   const hexColor = colorHexMap[color.toLowerCase()] || '#CCCCCC';
   
   // Use thumbnail URL if available, otherwise use default
-  const thumbnailUrl = variant.thumbnailUrl || '/product-img-white.png';
+  // Prefer variant.thumbnailUrl, else try first product thumbnail from backend shape
+  const thumbnailUrl =
+    variant.thumbnailUrl ||
+    (Array.isArray(variant.productThumbnails) && variant.productThumbnails[0]?.url) ||
+    (Array.isArray(variant.thumbnails) && variant.thumbnails[0]?.url) ||
+    '/product-img-white.png';
   
   colorImageMap[color.toLowerCase()] = {
     color: hexColor,
@@ -85,7 +90,7 @@ export function transformVariantToProduct(variant: any): Product {
   const inStock = available > 0 || onHand > 0;
   
   const transformedProduct = {
-    id: parseInt(productId) || 0,
+    id: productId,
     _id: productId, // Store the original MongoDB ObjectId
     name: `${title} - ${variantCombo}`,
     colorImageMap,
