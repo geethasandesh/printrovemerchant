@@ -217,8 +217,8 @@ export function OrderCheckout() {
   };
 
   // This function is used for creating order via API (reserved for future use)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleCreateOrder = async (): Promise<void> => {
+  // Prefixed with underscore to indicate intentionally unused
+  const _handleCreateOrder = async (): Promise<void> => {
     // payload per merchantOrder.service.ts
     const API_URL = import.meta.env.VITE_APP_API_URL;
     const base = (API_URL || '').replace(/\/+$/, '');

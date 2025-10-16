@@ -19,7 +19,6 @@ import { useProductCatalogStore } from "../store/useProductCatlog";
 export default function NewProductCatalog({
   currentStatus,
   statusSteps,
-  nextPage,
 }: {
   currentStatus: string;
   statusSteps: string[];
