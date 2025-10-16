@@ -15,6 +15,7 @@ export function Collection() {
 
     const sampleProducts = [
         {
+            id: "1",
             title: "Classic T-Shirt",
             sizes: ["S", "M", "L", "XL", "2XL"],
             colorImageMap: {
@@ -35,6 +36,7 @@ export function Collection() {
             showCheckbox: true
         },
         {
+            id: "2",
             title: "Classic T-Shirt",
             sizes: ["S", "M", "L", "XL", "2XL"],
             colorImageMap: {
@@ -55,6 +57,7 @@ export function Collection() {
             showCheckbox: true
         },
         {
+            id: "3",
             title: "Classic T-Shirt",
             sizes: ["S", "M", "L", "XL", "2XL"],
             colorImageMap: {
@@ -75,6 +78,7 @@ export function Collection() {
             showCheckbox: true
         },
         {
+            id: "4",
             title: "Classic T-Shirt",
             sizes: ["S", "M", "L", "XL", "2XL"],
             colorImageMap: {
@@ -95,6 +99,7 @@ export function Collection() {
             showCheckbox: true
         },
         {
+            id: "5",
             title: "Classic T-Shirt",
             sizes: ["S", "M", "L", "XL", "2XL"],
             colorImageMap: {
@@ -170,9 +175,9 @@ export function Collection() {
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-3 gap-6">
-                                    {sampleProducts.map((product, index) => (
+                                    {sampleProducts.map((product) => (
                                         <ProductRecommendation
-                                            key={index}
+                                            key={product.id}
                                             {...product}
                                         />
                                     ))}

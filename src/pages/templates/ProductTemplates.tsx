@@ -4,7 +4,6 @@ import { SideMenu } from "../../layout/SideMenu";
 import { Button } from "../../components/common/Button";
 import { MenuHorizontalIcon,SearchIcon } from '@shopify/polaris-icons';
 import { Layout, Text, Select } from '@shopify/polaris';
-import { ProductRecommendation } from '../../components/ProductRecommendation';
 import { useNavigate } from 'react-router-dom';
 import { collections } from './collections';
 import { useFetch } from '../../hooks/useFetch';
@@ -159,13 +158,19 @@ export function ProductTemplates() {
                                                     <div className="py-1">
                                                         <button
                                                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                                        onClick={handleEdit}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleEdit(collection.id);
+                                                        }}
                                                         >
                                                         Edit
                                                         </button>
                                                         <button
                                                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                                        onClick={handleDelete}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleDelete(collection.id);
+                                                        }}
                                                         >
                                                         Delete
                                                         </button>

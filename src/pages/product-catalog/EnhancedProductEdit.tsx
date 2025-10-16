@@ -62,9 +62,9 @@ export default function EnhancedProductEdit() {
 
       // Extract available positions from variant configurations
       const positions = new Set<string>();
-      Object.values(productData.variantConfigurations || {}).forEach((variant: VariantConfiguration) => {
-        variant.printConfigurations?.forEach((config: PrintConfiguration) => {
-          config.locations?.forEach((location: ProductPosition) => {
+      Object.values(productData.variantConfigurations || {}).forEach((variant) => {
+        variant.printConfigurations?.forEach((config) => {
+          config.locations?.forEach((location) => {
             // Convert location names to display names
             const displayName = location.location
               .replace(/_/g, ' ')

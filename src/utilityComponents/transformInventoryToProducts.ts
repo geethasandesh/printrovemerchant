@@ -4,7 +4,9 @@ export const transformInventoryToProducts = (apiResponse: any) => {
   if (!apiResponse?.data) return [];  
   return apiResponse.data.map((item: any): Product => ({
     id: Number(item._id || item.item_id),
+    _id: String(item._id || item.item_id),
     name: item.name,
+    title: item.name,
     description: item.description,
     price: Number(item.pricebook_rate || item.rate || item.sales_rate || 0),
     currency: item.rate_formatted?.split('.')[0] || 'Rs.',

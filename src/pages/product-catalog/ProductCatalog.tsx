@@ -18,7 +18,7 @@ export function ProductCatalog({ navbarHidden = false }: { navbarHidden?: boolea
     updateFilter
   } = useProductCatalogStore();
   // Fetch only active products for merchant catalog
-  const {data, isLoading}=useFetch(`/products/all?status=active`,0);
+  const {data}=useFetch(`/products/all?status=active`,0);
   console.log('Fetched products:', data);
 
   useEffect(() => {
