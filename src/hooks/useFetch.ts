@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { toast } from "react-hot-toast";
+// import { toast } from "react-hot-toast";
 
 export const useFetch = (endpoint: string, refreshDep: number) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -63,30 +63,22 @@ export const useFetch = (endpoint: string, refreshDep: number) => {
           request: axios.isAxiosError(err) ? err.request : undefined
         });
 
+      // Silence UI toasts for fetch errors; keep console diagnostics only
       if (axios.isAxiosError(err)) {
-        // Only show toast for client errors (4xx) and server errors (5xx), not for network issues
         if (err.response && err.response.status >= 400) {
-          const errorMessage = err.response?.data?.message || `${err.response?.status || ''} ${err.response?.statusText || ''}` || "Something went wrong!";
           console.error("🚨 API Error Response:", {
             status: err.response.status,
             statusText: err.response.statusText,
             data: err.response.data,
             url: err.config?.url
           });
-          toast.error(errorMessage);
         } else {
-          // For network errors, just log them without showing toast
-          console.warn("🌐 Network error (this might be expected):", err.message);
-          console.warn("🌐 Network error details:", {
-            code: err.code,
-            message: err.message,
-            url: err.config?.url
-          });
+          console.warn("🌐 Network error (silenced):", err.message, { code: err.code, url: err.config?.url });
         }
       } else if (err instanceof Error) {
-        console.warn("⚠️ Request error:", err.message);
+        console.warn("⚠️ Request error (silenced):", err.message);
       } else {
-        console.warn("⚠️ Unknown error occurred:", err);
+        console.warn("⚠️ Unknown error occurred (silenced):", err);
       }
     } finally {
       setIsLoading(false);

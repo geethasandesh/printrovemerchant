@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-hot-toast";
+// import { toast } from "react-hot-toast";
 import { useCookies } from "react-cookie";
 
 export const usePatch = () => {
@@ -32,7 +32,7 @@ export const usePatch = () => {
       });
 
       if (res.status === 200 || res.status === 204) {
-        toast.success("Successfully updated! 🎉");
+        // toast.success("Successfully updated! 🎉");
 
         if (onSuccess) {
           onSuccess();
@@ -45,14 +45,7 @@ export const usePatch = () => {
     } catch (error: unknown) {
       console.error("Error updating data:", error);
 
-      if (axios.isAxiosError(error)) {
-        const errorMessage = error.response?.data?.message || "Something went wrong!";
-        toast.error(errorMessage);
-      } else if (error instanceof Error) {
-        toast.error(error.message);
-      } else {
-        toast.error("Unknown error occurred.");
-      }
+      // Silence UI error toasts for PATCH
     } finally {
       setIsLoading(false);
     }

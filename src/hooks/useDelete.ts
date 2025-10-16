@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { toast } from "react-hot-toast";
+// import { toast } from "react-hot-toast";
 import { useCookies } from "react-cookie";
 export const useDelete = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -18,7 +18,7 @@ export const useDelete = () => {
                 },
             });
             if (res.status === 200 || res.status === 204) {
-                toast.success("Successfully deleted! 🎉");
+                // toast.success("Successfully deleted! 🎉");
                 // Refresh component by calling onSuccess
                 if (onSuccess) {
                     onSuccess();
@@ -26,11 +26,7 @@ export const useDelete = () => {
             }
         } catch (error: unknown) {
             console.error("Error deleting data:", error);        
-            let errorMessage = "Something went wrong!";            
-            if (axios.isAxiosError(error) && error.response?.data?.message) {
-                errorMessage = error.response.data.message;
-            }        
-            toast.error(errorMessage);
+            // Silence UI error toast for DELETE
         }finally {
             setIsLoading(false);
         }

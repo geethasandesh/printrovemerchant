@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-hot-toast";
+// import { toast } from "react-hot-toast";
 // import { useCookies } from "react-cookie";
 
 export const usePost = () => {
@@ -30,22 +30,14 @@ export const usePost = () => {
       });
 
       if (res.status === 200 || res.status === 201) {
-        toast.success("Successfully posted! 🎉");
+        // toast.success("Successfully posted! 🎉");
         if (onSuccess) onSuccess(res.data);
         if (redirect_url) navigate(redirect_url);
         return res.data;
       }
     } catch (error: unknown) {
       console.error("Error posting data:", error);
-
-      if (axios.isAxiosError(error)) {
-        const errorMessage = error.response?.data?.message || "Something went wrong!";
-        toast.error(errorMessage);
-      } else if (error instanceof Error) {
-        toast.error(error.message);
-      } else {
-        toast.error("Unknown error occurred.");
-      }
+      // Silence UI errors for POST as requested
     } finally {
       setIsLoading(false);
     }
