@@ -10,7 +10,6 @@ import {
   InlineStack,
   Text
 } from '@shopify/polaris';
-import axios from 'axios';
 import { ArrowLeftIcon, InfoIcon } from '@shopify/polaris-icons';
 import { Navbar } from '../layout/Navbar';
 import { Button } from '../components/common/Button';
