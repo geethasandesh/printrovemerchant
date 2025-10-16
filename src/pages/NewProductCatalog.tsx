@@ -15,7 +15,6 @@ import CatalogSidebarFilters from "../utilityComponents/CatalogSidebarFilters";
 import { ProgressBar } from "./orders/ProgressBar";
 import { useFetch } from "../hooks/useFetch";
 import { useProductCatalogStore } from "../store/useProductCatlog";
-import { transformMongoProductsToProducts } from "../utilityComponents/transformProductData";
 
 export default function NewProductCatalog({
   currentStatus,

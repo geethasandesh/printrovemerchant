@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { 
-  UploadIcon, 
-  ImageIcon, 
   DocumentIcon
 } from './PrintifyIcons';
 

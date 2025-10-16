@@ -93,11 +93,11 @@ function App() {
             <Route path="/store-connect/1" element={<StoreConnect1 />} />
             <Route path="/store-connect/2" element={<StoreConnect2 />} />
             <Route path="/store-connect/edit-price" element={<StoreConnectEditPrice />} />
-            <Route path="/product-progress" element={<ProductProgress currentStatus="Product" statusSteps={['Product', 'Design', 'Mockups', 'Details', 'Pricing']} nextPage="/product-progress/shipping" />} />
-            <Route path="/product-progress/product" element={<ProductProgress currentStatus="Product" statusSteps={['Product', 'Design', 'Mockups', 'Details', 'Pricing']} nextPage="/product-progress/mockups" />} />
+            <Route path="/product-progress" element={<ProductProgress currentStatus="Product" statusSteps={['Product', 'Design', 'Mockups', 'Details', 'Pricing']} />} />
+            <Route path="/product-progress/product" element={<ProductProgress currentStatus="Product" statusSteps={['Product', 'Design', 'Mockups', 'Details', 'Pricing']} />} />
             <Route path="/product-progress/mockups" element={<ProductMockups />} />
             <Route path="/product-progress/details" element={<ProductDetails />} />
-            <Route path="/product-progress/catolog" element={<NewProductCatalog currentStatus="Product" statusSteps={['Product', 'Design', 'Mockups', 'Details', 'Pricing']} nextPage="/product-progress/mockups" />} />
+            <Route path="/product-progress/catolog" element={<NewProductCatalog currentStatus="Product" statusSteps={['Product', 'Design', 'Mockups', 'Details', 'Pricing']} />} />
             <Route path="/product-progress/pricing" element={<ProductPricing />} />
             <Route path="/product-progress/store-connect-settings" element={<StoreConnectSettings />} />
             {/* Store connect end */}

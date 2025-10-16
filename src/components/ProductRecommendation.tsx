@@ -3,7 +3,6 @@ import { Button } from '../components/common/Button';
 import { Checkbox } from '@shopify/polaris';
 import { useNavigate } from 'react-router-dom';
 import { useProductCatalogStore } from '../store/useProductCatlog';
-import { IdCard } from 'lucide-react';
 
 interface ProductRecommendationProps {
   id: string; // Product ID (from _id)
@@ -81,8 +80,8 @@ export const ProductRecommendation = ({
               <Button
                 variant="secondary"
                 className="w-[70%]"
-                onClick={(e) => {
-                  e.stopPropagation();
+                onClick={(e?: React.MouseEvent<HTMLButtonElement>) => {
+                  e?.stopPropagation();
                   handleProductClick();
                 }}
               >

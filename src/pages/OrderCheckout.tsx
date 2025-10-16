@@ -117,6 +117,7 @@ export function OrderCheckout() {
 
   // Files for self shipping
   const [selfLabelFile, setSelfLabelFile] = useState<File | null>(null);
+  const [invoiceFile, setInvoiceFile] = useState<File | null>(null);
   const [errors, setErrors] = useState<Record<string, string | undefined>>({});
 
   // Subtotal passed from previous step
@@ -216,7 +217,8 @@ export function OrderCheckout() {
     });
   };
 
-  const handleCreateOrder = async (): Promise<void> => {
+  // TODO: This function should be connected to a button/form submission
+  const _handleCreateOrder = async (): Promise<void> => {
     // payload per merchantOrder.service.ts
     const API_URL = import.meta.env.VITE_APP_API_URL;
     const base = (API_URL || '').replace(/\/+$/, '');
