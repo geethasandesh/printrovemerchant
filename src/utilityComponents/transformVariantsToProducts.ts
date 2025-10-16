@@ -86,6 +86,7 @@ export function transformVariantToProduct(variant: any): Product {
   
   const transformedProduct = {
     id: parseInt(productId) || 0,
+    _id: productId, // Store the original MongoDB ObjectId
     name: `${title} - ${variantCombo}`,
     colorImageMap,
     sizes: [size],

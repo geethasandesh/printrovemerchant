@@ -1,5 +1,6 @@
 export interface Product {
   id: number;
+  _id?: string; // MongoDB ObjectId for API calls
   name: string;
   colorImageMap: { [key: string]: { color: string; path: string } };
   sizes: string[];

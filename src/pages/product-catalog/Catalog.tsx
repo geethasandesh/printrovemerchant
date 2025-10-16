@@ -44,6 +44,7 @@ export function Catalog() {
           <ProductRecommendation
             key={product.id}
             id={String(product.id)}
+            _id={product._id}
             title={product.name}
             price={product.price}
             discount={product.discount}

@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useProductCatalogStore } from '../store/useProductCatlog';
 
 interface ProductRecommendationProps {
-  id: string; // Product ID (from _id)
+  id: string | number; // Display ID
+  _id?: string; // MongoDB ObjectId for navigation
   title: string;
   sizes: string[];
   price?: number;
@@ -26,6 +27,7 @@ interface ProductRecommendationProps {
 
 export const ProductRecommendation = ({
   id,
+  _id,
   title,
   price,
   discount = 0,
@@ -49,8 +51,9 @@ export const ProductRecommendation = ({
     : price;
 
   const handleProductClick = () => {
-    selectProduct(id); // ✅ Set the selected product in Zustand store
-    navigate(`/product-design-editor/${id}`); // ✅ Navigate to product design editor
+    const productId = _id || String(id);
+    selectProduct(productId); // ✅ Set the selected product in Zustand store (prefer MongoDB _id)
+    navigate(`/product-design-editor/${productId}`); // ✅ Navigate to product design editor with MongoDB _id
   };
 
   return (
