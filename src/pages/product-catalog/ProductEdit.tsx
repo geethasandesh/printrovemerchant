@@ -11,10 +11,14 @@ export default function ProductEdit() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { selectedProduct, selectProduct, setProducts } = useProductCatalogStore();
-  const { data } = useFetch(`/products/${id}`, 0);
+  const { data, isLoading: isFetchingData } = useFetch(`/products/${id}`, 0);
+
+  console.log('🔍 ProductEdit - data:', data);
+  console.log('🔍 ProductEdit - isFetchingData:', isFetchingData);
 
   useEffect(() => {
     if (data?.data) {
+      console.log('✅ Product data loaded in ProductEdit:', data.data);
       const product = data.data;
 
       // Set product in catalog store

@@ -60,6 +60,9 @@ export default function PrintifyStyleProductDesignEditor() {
   
   // Fetch product data with model files
   const { data: productData, isLoading: isLoadingProduct } = useFetch(`/products/${id}`, 0);
+  
+  console.log('🔍 ProductDesignEditor - productData:', productData);
+  console.log('🔍 ProductDesignEditor - isLoadingProduct:', isLoadingProduct);
 
   // NEW: derive admin gridline data (variant combinations → print configs → locations)
   const [selectedCombo, setSelectedCombo] = useState<string>("");

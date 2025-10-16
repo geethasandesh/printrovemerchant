@@ -42,7 +42,7 @@ export default function EnhancedProductEdit() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { selectProduct } = useProductCatalogStore();
-  const { data } = useFetch(`/products/${id}`, 0);
+  const { data, isLoading: isFetchingData } = useFetch(`/products/${id}`, 0);
   
   // State for current product and positions
   const [product, setProduct] = useState<ProductData | null>(null);
@@ -50,15 +50,21 @@ export default function EnhancedProductEdit() {
   const [selectedPosition, setSelectedPosition] = useState<string>('Front side');
   const [productImage, setProductImage] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   // Canvas ref for product visualization
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    console.log('🔍 EnhancedProductEdit - data received:', data);
+    console.log('🔍 EnhancedProductEdit - isFetchingData:', isFetchingData);
+    
     if (data?.data) {
+      console.log('✅ Product data loaded successfully:', data.data);
       const productData = data.data;
       setProduct(productData);
       selectProduct(productData._id);
+      setLoadError(null);
 
       // Extract available positions from variant configurations
       const positions = new Set<string>();
@@ -92,8 +98,12 @@ export default function EnhancedProductEdit() {
       }
 
       setIsLoading(false);
+    } else if (!isFetchingData && !data) {
+      console.log('❌ No product data received - API might have failed');
+      setLoadError('Failed to load product. The product might not exist or there was a server error.');
+      setIsLoading(false);
     }
-  }, [data, selectProduct]);
+  }, [data, selectProduct, isFetchingData]);
 
   // Get default product image based on product type
   const getDefaultProductImage = (productType: string): string => {
@@ -218,10 +228,18 @@ export default function EnhancedProductEdit() {
   if (!product) {
     return (
       <div className="min-h-screen bg-[#F7F7F7] flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-600 mb-4">Product not found</p>
+        <div className="text-center max-w-md mx-auto p-6">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-4">
+            <p className="text-red-600 font-semibold mb-2">⚠️ Failed to Load Product</p>
+            <p className="text-sm text-gray-600 mb-4">
+              {loadError || 'Product not found or the server encountered an error (500).'}
+            </p>
+            <p className="text-xs text-gray-500">
+              This is likely a backend API issue. Please check the server logs or contact support.
+            </p>
+          </div>
           <Button variant="secondary" onClick={() => navigate(-1)}>
-            Go Back
+            Go Back to Product Catalog
           </Button>
         </div>
       </div>
