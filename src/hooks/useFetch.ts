@@ -10,16 +10,20 @@ export const useFetch = (endpoint: string, refreshDep: number) => {
   const [refreshKey, setRefreshKey] = useState(0);
 
   const handleFetch = async () => {
-    console.log('useFetch called for endpoint:', endpoint, 'refreshDep:', refreshDep);
+    if (import.meta.env.DEV) {
+      console.log('useFetch called for endpoint:', endpoint, 'refreshDep:', refreshDep);
+    }
     setIsLoading(true);
     setData(null);
 
       try {
         const API_URL = import.meta.env.VITE_APP_API_URL;
-        console.log("🔧 Environment check:", {
-          VITE_APP_API_URL: API_URL,
-          allEnvVars: import.meta.env
-        });
+        if (import.meta.env.DEV) {
+          console.log("🔧 Environment check:", {
+            VITE_APP_API_URL: API_URL,
+            allEnvVars: import.meta.env
+          });
+        }
         
         if (!API_URL) {
           console.error("❌ VITE_APP_API_URL is not defined!");
@@ -37,7 +41,9 @@ export const useFetch = (endpoint: string, refreshDep: number) => {
           if (!ep.startsWith("/")) ep = `/${ep}`;
         }
         const url = `${base}${ep}`;
-        console.log('Making API request to:', url);
+        if (import.meta.env.DEV) {
+          console.log('Making API request to:', url);
+        }
 
         const res = await axios.get(url, {
         headers: {
@@ -47,38 +53,52 @@ export const useFetch = (endpoint: string, refreshDep: number) => {
       });
 
       if (res.status === 200) {
-        console.log('✅ API Response received:', res.data);
+        if (import.meta.env.DEV) {
+          console.log('✅ API Response received:', res.data);
+        }
         setData(res.data);
       } else {
-        console.error('❌ API Response error:', res.status, res.statusText);
+        if (import.meta.env.DEV) {
+          console.error('❌ API Response error:', res.status, res.statusText);
+        }
         throw new Error("Failed to fetch data.");
       }
       } catch (err: unknown) {
-        console.error("❌ Error fetching data:", err);
-        console.error("❌ Error details:", {
-          message: err instanceof Error ? err.message : 'Unknown error',
-          stack: err instanceof Error ? err.stack : undefined,
-          isAxiosError: axios.isAxiosError(err),
-          response: axios.isAxiosError(err) ? err.response : undefined,
-          request: axios.isAxiosError(err) ? err.request : undefined
-        });
+        if (import.meta.env.DEV) {
+          console.error("❌ Error fetching data:", err);
+          console.error("❌ Error details:", {
+            message: err instanceof Error ? err.message : 'Unknown error',
+            stack: err instanceof Error ? err.stack : undefined,
+            isAxiosError: axios.isAxiosError(err),
+            response: axios.isAxiosError(err) ? err.response : undefined,
+            request: axios.isAxiosError(err) ? err.request : undefined
+          });
+        }
 
       // Silence UI toasts for fetch errors; keep console diagnostics only
       if (axios.isAxiosError(err)) {
         if (err.response && err.response.status >= 400) {
-          console.error("🚨 API Error Response:", {
-            status: err.response.status,
-            statusText: err.response.statusText,
-            data: err.response.data,
-            url: err.config?.url
-          });
+          if (import.meta.env.DEV) {
+            console.error("🚨 API Error Response:", {
+              status: err.response.status,
+              statusText: err.response.statusText,
+              data: err.response.data,
+              url: err.config?.url
+            });
+          }
         } else {
-          console.warn("🌐 Network error (silenced):", err.message, { code: err.code, url: err.config?.url });
+          if (import.meta.env.DEV) {
+            console.warn("🌐 Network error (silenced):", err.message, { code: err.code, url: err.config?.url });
+          }
         }
       } else if (err instanceof Error) {
-        console.warn("⚠️ Request error (silenced):", err.message);
+        if (import.meta.env.DEV) {
+          console.warn("⚠️ Request error (silenced):", err.message);
+        }
       } else {
-        console.warn("⚠️ Unknown error occurred (silenced):", err);
+        if (import.meta.env.DEV) {
+          console.warn("⚠️ Unknown error occurred (silenced):", err);
+        }
       }
     } finally {
       setIsLoading(false);
