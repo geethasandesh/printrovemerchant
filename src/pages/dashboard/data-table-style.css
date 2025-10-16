@@ -1,0 +1,22 @@
+.dashboard-page .Polaris-DataTable__Table td,
+.dashboard-page .Polaris-DataTable__Table th,
+.dashboard-page .Polaris-DataTable__Cell {
+  text-align: center !important;
+}
+
+.dashboard-page .Polaris-DataTable__Cell--header {
+    background-color: #EBEBEB;
+    font-weight: bold;
+}
+
+.dashboard-page .Polaris-DataTable__Table td {
+    font-size: 18px;
+    padding: 20px;
+}
+
+.dashboard-page .Polaris-DataTable__Cell--firstColumn {
+    font-weight: normal;
+    font-size: 18px;
+    padding: 20px;
+    background-color: white;
+}

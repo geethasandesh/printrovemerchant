@@ -1,0 +1,54 @@
+.order-summary-table .Polaris-DataTable__Table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.order-summary-table .Polaris-DataTable__Cell--header {
+    background-color: #F7F7F7;
+    color: #272727;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.4285714286em;
+    padding: 8px 6px;
+    border-bottom: 1px solid #E3E3E3;
+}
+
+.order-summary-table .Polaris-DataTable__Cell--header:first-child {
+    padding-left: 16px;
+}
+
+.order-summary-table .Polaris-DataTable__Cell {
+    padding: 16px 6px;
+    font-size: 14px;
+    line-height: 1.4285714286em;
+    color: #303030;
+    border-bottom: 1px solid #EBEBEB;
+}
+
+.order-summary-table .Polaris-DataTable__Cell:first-child {
+    padding-left: 16px;
+}
+
+/* Product column styling */
+.order-summary-table .Polaris-DataTable__Cell:nth-child(2) {
+    font-size: 16px;
+    line-height: 1.5em;
+    padding: 14px 16px;
+}
+
+/* Total row styling */
+.order-summary-table .Polaris-DataTable__Row:last-child .Polaris-DataTable__Cell {
+    font-weight: 700;
+    border-bottom: none;
+}
+
+/* First row background */
+.order-summary-table .Polaris-DataTable__Row:first-child .Polaris-DataTable__Cell {
+    background-color: #FBFBFB;
+}
+
+/* Alternating row backgrounds */
+.order-summary-table .Polaris-DataTable__Row:not(:first-child):not(:last-child) .Polaris-DataTable__Cell {
+    background-color: #FFFFFF;
+} 

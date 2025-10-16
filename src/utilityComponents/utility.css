@@ -1,0 +1,77 @@
+.stepper {
+    display: flex;
+    background-color: #e0e0e0;
+    border-radius: 40px;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 12px;
+    justify-content: center;
+    position: relative;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.step.active {
+    background-color: #00985f;
+    margin-left: 0;
+}
+
+.stepper .step.active {
+    background-color: #00985f;
+    transition: background-color 0.3s;
+}
+
+.stepper .step.active:first-child {
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+}
+
+.stepper .step.active:last-child {
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+
+.circle {
+    width: 32px;
+    height: 32px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+}
+
+.step.active .circle {
+    background-color: white;
+    border-color: white;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: #00985f;
+    border-radius: 50%;
+}
+
+.step:not(.active) .dot {
+    background-color: transparent;
+}
+
+.label {
+    font-size: 14px;
+    color: #555;
+}
+
+.step.active .label {
+    color: white;
+    font-weight: 500;
+}

@@ -1,0 +1,1 @@
+Custom hooks can be created in this directory.
