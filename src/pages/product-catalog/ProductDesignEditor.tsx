@@ -795,7 +795,16 @@ export default function PrintifyStyleProductDesignEditor() {
         throw new Error('API URL is not configured. Please check your environment variables.');
       }
 
-      const response = await fetch(`${API_URL}/product-templates`, {
+      // Normalize URL similar to useFetch to avoid double/missing /api
+      const base = API_URL.replace(/\/+$/, '');
+      let ep = '/product-templates';
+      const baseEndsWithApi = /\/api$/i.test(base);
+      if (!baseEndsWithApi) {
+        ep = `/api${ep}`;
+      }
+      const url = `${base}${ep}`;
+
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -804,7 +813,16 @@ export default function PrintifyStyleProductDesignEditor() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to save template');
+        let message = 'Failed to save template';
+        try {
+          const errJson = await response.json();
+          if (errJson?.message) message = errJson.message;
+        } catch (_) {
+          // ignore json parse error
+          const text = await response.text();
+          if (text) message = text;
+        }
+        throw new Error(message);
       }
 
       const result = await response.json();
@@ -822,7 +840,7 @@ export default function PrintifyStyleProductDesignEditor() {
       navigate('/templates');
     } catch (error) {
       console.error('Error saving template:', error);
-      alert('Failed to save template. Please try again.');
+      alert(`Failed to save template. ${error instanceof Error ? error.message : 'Please try again.'}`);
     } finally {
       setIsSavingTemplate(false);
     }
