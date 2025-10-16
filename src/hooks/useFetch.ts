@@ -10,7 +10,7 @@ export const useFetch = (endpoint: string, refreshDep: number) => {
   const [refreshKey, setRefreshKey] = useState(0);
 
   const handleFetch = async () => {
-    console.log({ refreshDep });
+    console.log('useFetch called for endpoint:', endpoint, 'refreshDep:', refreshDep);
     setIsLoading(true);
     setData(null);
 
@@ -31,6 +31,7 @@ export const useFetch = (endpoint: string, refreshDep: number) => {
           if (!ep.startsWith("/")) ep = `/${ep}`;
         }
         const url = `${base}${ep}`;
+        console.log('Making API request to:', url);
 
         const res = await axios.get(url, {
         headers: {
@@ -48,12 +49,18 @@ export const useFetch = (endpoint: string, refreshDep: number) => {
         console.error("Error fetching data:", err);
 
       if (axios.isAxiosError(err)) {
+        // Only show toast for client errors (4xx) and server errors (5xx), not for network issues
+        if (err.response && err.response.status >= 400) {
           const errorMessage = err.response?.data?.message || `${err.response?.status || ''} ${err.response?.statusText || ''}` || "Something went wrong!";
-        toast.error(errorMessage);
+          toast.error(errorMessage);
+        } else {
+          // For network errors, just log them without showing toast
+          console.warn("Network error (this might be expected):", err.message);
+        }
       } else if (err instanceof Error) {
-        toast.error(err.message);
+        console.warn("Request error:", err.message);
       } else {
-        toast.error("Unknown error occurred.");
+        console.warn("Unknown error occurred:", err);
       }
     } finally {
       setIsLoading(false);
