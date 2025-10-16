@@ -23,6 +23,9 @@ export function ProductCatalog({ navbarHidden = false }: { navbarHidden?: boolea
 
   useEffect(() => {
     console.log('🔄 ProductCatalog useEffect triggered with data:', data);
+    if (data?.data?.length) {
+      console.debug('[catalog] First 2 API variants sample', data.data.slice(0, 2));
+    }
     
     // Use fetched data if available, otherwise fallback to hardcoded products
     if (data?.data && Array.isArray(data.data)) {

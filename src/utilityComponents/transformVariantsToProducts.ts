@@ -78,6 +78,22 @@ export function transformVariantToProduct(variant: any): Product {
     (Array.isArray(variant.productThumbnails) && variant.productThumbnails[0]?.url) ||
     (Array.isArray(variant.thumbnails) && variant.thumbnails[0]?.url) ||
     '/product-img-white.png';
+
+  // Debug: log how thumbnail was resolved
+  try {
+    console.debug('[catalog] Thumbnail pick', {
+      productId,
+      variantCombo,
+      direct: !!variant.thumbnailUrl && variant.thumbnailUrl,
+      fromProductThumbnails: Array.isArray(variant.productThumbnails)
+        ? variant.productThumbnails[0]?.url
+        : undefined,
+      fromThumbnails: Array.isArray(variant.thumbnails)
+        ? variant.thumbnails[0]?.url
+        : undefined,
+      final: thumbnailUrl,
+    });
+  } catch {}
   
   colorImageMap[color.toLowerCase()] = {
     color: hexColor,

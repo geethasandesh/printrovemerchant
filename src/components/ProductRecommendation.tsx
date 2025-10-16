@@ -77,6 +77,24 @@ export const ProductRecommendation = ({
             src={isHovered && hoverImage && inStock ? hoverImage : colorImageMap[selectedColor].path}
             alt={title}
             className={`w-full h-full object-cover transition-opacity duration-300 ${!inStock ? 'opacity-50' : ''}`}
+            onError={(e) => {
+              const img = e.currentTarget as HTMLImageElement;
+              console.error('[catalog] Image failed to load', {
+                title,
+                selectedColor,
+                tried: img.src,
+                colorImageMap,
+              });
+              // Fallback to placeholder once
+              if (!img.dataset.fallback) {
+                img.dataset.fallback = '1';
+                img.src = '/product-img-white.png';
+              }
+            }}
+            onLoad={(e) => {
+              const img = e.currentTarget as HTMLImageElement;
+              console.debug('[catalog] Image loaded', { title, selectedColor, src: img.src });
+            }}
           />
           {isHovered && inStock && (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/40 transition-opacity duration-300">
