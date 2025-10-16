@@ -11,7 +11,6 @@ import {
 } from "@shopify/polaris";
 import { ArrowLeftIcon } from "@shopify/polaris-icons";
 import { ProductRecommendation } from "../components/ProductRecommendation";
-import CatalogSidebarFilters from "../utilityComponents/CatalogSidebarFilters";
 import { ProgressBar } from "./orders/ProgressBar";
 import { useFetch } from "../hooks/useFetch";
 import { useProductCatalogStore } from "../store/useProductCatalogStore";
@@ -97,8 +96,7 @@ export default function NewProductCatalog({
                   <div className="tab">My Product Templates</div>
                 </div>
                 <InlineStack wrap={false} gap={"400"}>
-                  <CatalogSidebarFilters />
-                  <div className="flex flex-col gap-6">
+                  <div className="flex flex-col gap-6 w-full">
                     <h2 className="text-2xl font-bold text-[#121212]">
                       Product Catalogue
                     </h2>
