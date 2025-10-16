@@ -26,6 +26,7 @@ export function Info() {
     const orderDetails = apiOrder || localOrder;
     console.log({orderDetails});
     const statusSteps = ['Created', 'In Production', 'Fulfilled', 'Delivered'];
+    const products: any[] = Array.isArray(orderDetails?.products) ? orderDetails!.products : [];
 
     const toggleCollapsible = (productId: string) => {
         setOpenCollapsibles(prev => ({
@@ -82,11 +83,11 @@ export function Info() {
                                             <DataTable
                                                 columnContentTypes={['text','text','text','text']}
                                                 headings={['ID','Name','Status','Price']}
-                                                rows={orderDetails.products.map((product: any,index:number) => [
+                                                rows={products.map((product: any,index:number) => [
                                                     index + 1,
-                                                    product.sku,
+                                                    product?.sku || product?.name || '-',
                                                     <Badge tone={'info'}>Kitting</Badge>,
-                                                    `₹${product.price}`
+                                                    `₹${product?.price || 0}`
                                                 ])}
                                                 increasedTableDensity
                                             />
@@ -109,7 +110,7 @@ export function Info() {
                                         {isLoading || !orderDetails ? (
                                             <div className="flex justify-center py-10"><Spinner size="large" /></div>
                                         ) : (
-                                            orderDetails.products.map((product: any) => (
+                                            products.map((product: any) => (
                                                 <Card key={product.id}>
                                                     <div className="">
                                                         <button
