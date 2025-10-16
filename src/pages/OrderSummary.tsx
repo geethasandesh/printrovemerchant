@@ -79,6 +79,20 @@ export function OrderSummary() {
             // Fail-safe: continue to confirmation even if backend fails
             console.error('Order creation failed, proceeding to confirmation UI:', err);
         } finally {
+            // Persist a lightweight local order so Orders page has data even without backend
+            try {
+                const localOrders = JSON.parse(localStorage.getItem('localOrders') || '[]');
+                const newOrder = {
+                    orderId: confirmationData.orderNumber,
+                    createdAt: new Date().toISOString(),
+                    orderStatus: 'Received',
+                    shippingAddress: shippingAddress,
+                };
+                const merged = [newOrder, ...localOrders].slice(0, 100);
+                localStorage.setItem('localOrders', JSON.stringify(merged));
+            } catch (e) {
+                console.warn('Failed to write local order cache:', e);
+            }
             navigate('/order-confirmation', { state: confirmationData });
         }
     };

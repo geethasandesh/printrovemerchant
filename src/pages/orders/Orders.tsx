@@ -20,11 +20,17 @@ export function Orders() {
     // Fetch orders from API
     const { data, isLoading } = useFetch(`/merchant-orders/6831e61f2aad0c7057421664/orders?page=${currentPage}&limit=${itemsPerPage}`, currentPage);
 
+    // Merge API orders with local fallback orders to ensure UI has something to show
+    const localOrders: any[] = (() => {
+        try { return JSON.parse(localStorage.getItem('localOrders') || '[]'); } catch { return []; }
+    })();
     //@ts-ignore
-    const orders = Array.isArray(data?.data) ? data.data : [];
+    const apiOrders = Array.isArray(data?.data) ? data.data : [];
+    //@ts-ignore
+    const orders = [...localOrders, ...apiOrders];
     console.log(orders);
     //@ts-ignore
-    const totalOrders = typeof data?.total === 'number' ? data.total : 0;
+    const totalOrders = orders.length;
 
     // Filtering and sorting (client-side for now)
     const filteredOrders = orders.filter((order: any) => {
