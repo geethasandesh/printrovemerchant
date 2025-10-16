@@ -1,22 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-interface ProductConfig {
-  productId: string;
-  design: any[];
-  color: string;
-  size: string;
-  quantity: number;
-  printType: string;
-  position: string;
-}
-
-interface ProductData {
-  title: string;
-  description: string;
-  variants: any[];
-}
-
 const OrderingProcess: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();

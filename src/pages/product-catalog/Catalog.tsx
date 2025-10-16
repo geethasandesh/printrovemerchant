@@ -43,7 +43,7 @@ export function Catalog() {
         {filteredProducts.map((product) => (
           <ProductRecommendation
             key={product.id}
-            id={product.id}
+            id={String(product.id)}
             title={product.name}
             price={product.price}
             discount={product.discount}

@@ -130,7 +130,7 @@ export function Dashboard() {
                                     {dashboardProducts.map((product) => (
                                     <ProductRecommendation
                                         key={product.id}
-                                        id={product.id}
+                                        id={String(product.id)}
                                         title={product.name}
                                         price={product.price}
                                         discount={product.discount}
@@ -149,7 +149,7 @@ export function Dashboard() {
                                 {dashboardProducts.map((product) => (
                                         <ProductRecommendation
                                             key={product.id}
-                                            id={product.id}
+                                            id={String(product.id)}
                                             title={product.name}
                                             price={product.price}
                                             discount={product.discount}

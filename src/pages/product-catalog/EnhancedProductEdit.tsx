@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../../components/common/Button';
-import { ArrowLeftIcon, ImagesIcon } from '@shopify/polaris-icons';
+import { ArrowLeftIcon } from '@shopify/polaris-icons';
 import { useProductCatalogStore } from '../../store/useProductCatlog';
 import { useFetch } from '../../hooks/useFetch';
 
@@ -41,7 +41,7 @@ interface ProductData {
 export default function EnhancedProductEdit() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { selectedProduct, selectProduct, setProducts } = useProductCatalogStore();
+  const { selectProduct } = useProductCatalogStore();
   const { data } = useFetch(`/products/${id}`, 0);
   
   // State for current product and positions
@@ -62,13 +62,13 @@ export default function EnhancedProductEdit() {
 
       // Extract available positions from variant configurations
       const positions = new Set<string>();
-      Object.values(productData.variantConfigurations || {}).forEach((variant) => {
-        variant.printConfigurations?.forEach((config) => {
-          config.locations?.forEach((location) => {
+      Object.values(productData.variantConfigurations || {}).forEach((variant: any) => {
+        variant.printConfigurations?.forEach((config: any) => {
+          config.locations?.forEach((location: any) => {
             // Convert location names to display names
             const displayName = location.location
               .replace(/_/g, ' ')
-              .replace(/\b\w/g, l => l.toUpperCase());
+              .replace(/\b\w/g, (l: string) => l.toUpperCase());
             positions.add(displayName);
           });
         });
