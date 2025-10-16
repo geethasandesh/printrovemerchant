@@ -12,7 +12,7 @@ const OrderConfirmation: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   
-  const { orderNumber, productConfig, shippingInfo, orderSummary } = location.state as OrderData || {};
+  const { orderNumber, productConfig, orderSummary } = location.state as OrderData || {};
 
   if (!orderNumber) {
     navigate('/product-catalog');

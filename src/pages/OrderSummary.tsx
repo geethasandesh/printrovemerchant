@@ -10,14 +10,13 @@ import { Button } from '../components/common/Button';
 import { ProgressBar } from '../pages/orders/ProgressBar';
 import './OrderSummary.css';
 import { usePost } from '../hooks/usePost';
-import { useFetch } from '../hooks/useFetch';
 import { useOrderStore } from '../store/useOrderStore';
 
 export function OrderSummary() {
     const navigate = useNavigate();
     const location = useLocation() as any;
     const { handlePost } = usePost();
-    const { products, merchant } = useOrderStore();
+    const { merchant } = useOrderStore();
 
     const passed = location?.state || {};
     const productConfig = passed.productConfig;

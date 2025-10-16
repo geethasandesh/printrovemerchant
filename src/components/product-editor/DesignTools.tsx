@@ -1,11 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { 
   UploadIcon, 
   ImageIcon, 
-  TypeIcon, 
-  SearchIcon,
-  DocumentIcon,
-  LayersIcon
+  DocumentIcon
 } from './PrintifyIcons';
 
 export interface UploadedFile {
@@ -28,7 +25,6 @@ export const UploadTool: React.FC<UploadToolProps> = ({
 }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelect = (file: File) => {
     // Validate file type
@@ -566,7 +562,7 @@ export const TextTool: React.FC<{ onTextAdd: (text: string, style: any) => void 
                 fontFamily: fontFamily,
                 fontWeight: fontWeight.toLowerCase().replace(' ', ''),
                 fontSize: `${fontSize}px`,
-                textAlign: textAlign,
+                textAlign: textAlign as React.CSSProperties['textAlign'],
                 color: textColor
               }}
             >

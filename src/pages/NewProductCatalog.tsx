@@ -31,10 +31,8 @@ export default function NewProductCatalog({
   useEffect(() => {
     if (data?.data && Array.isArray(data.data)) {
       console.log('Setting products from API in NewProductCatalog:', data.data.length);
-      // Transform MongoDB products to match expected Product interface
-      const transformedProducts = transformMongoProductsToProducts(data.data);
-      console.log('Transformed products:', transformedProducts);
-      setProducts(transformedProducts);
+      // Use raw data directly as it's already in the correct format
+      setProducts(data.data);
     }
   }, [data, setProducts]);
 
