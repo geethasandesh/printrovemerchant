@@ -1,6 +1,6 @@
-# React + TypeScript + Vite
+# Printrove Merchant Panel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the merchant-facing application built with React + TypeScript + Vite with HMR and ESLint.
 
 Currently, two official plugins are available:
 
