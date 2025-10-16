@@ -15,6 +15,7 @@ import CatalogSidebarFilters from "../utilityComponents/CatalogSidebarFilters";
 import { ProgressBar } from "./orders/ProgressBar";
 import { useFetch } from "../hooks/useFetch";
 import { useProductCatalogStore } from "../store/useProductCatlog";
+import { transformVariantsToProducts } from "../utilityComponents/transformVariantsToProducts";
 
 export default function NewProductCatalog({
   currentStatus,
@@ -31,8 +32,10 @@ export default function NewProductCatalog({
   useEffect(() => {
     if (data?.data && Array.isArray(data.data)) {
       console.log('Setting products from API in NewProductCatalog:', data.data.length);
-      // Use raw data directly as it's already in the correct format
-      setProducts(data.data);
+      // Transform variant data to match expected Product interface
+      const transformedProducts = transformVariantsToProducts(data.data);
+      console.log('Transformed products:', transformedProducts.length);
+      setProducts(transformedProducts);
     }
   }, [data, setProducts]);
 

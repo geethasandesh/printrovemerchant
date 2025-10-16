@@ -6,7 +6,7 @@ import { Catalog } from './Catalog';
 import { productCatalogProducts } from '../../store/products';
 import { useProductCatalogStore } from '../../store/useProductCatalogStore';
 import { useFetch } from '../../hooks/useFetch';
-import { transformMongoProductsToProducts } from '../../utilityComponents/transformProductData';
+import { transformVariantsToProducts } from '../../utilityComponents/transformVariantsToProducts';
 
 export function ProductCatalog({ navbarHidden = false }: { navbarHidden?: boolean }) {
   const {
@@ -25,8 +25,8 @@ export function ProductCatalog({ navbarHidden = false }: { navbarHidden?: boolea
     // Use fetched data if available, otherwise fallback to hardcoded products
     if (data?.data && Array.isArray(data.data)) {
       console.log('Setting products from API:', data.data.length);
-      // Transform MongoDB products to match expected Product interface
-      const transformedProducts = transformMongoProductsToProducts(data.data);
+      // Transform variant data to match expected Product interface
+      const transformedProducts = transformVariantsToProducts(data.data);
       console.log('Transformed products:', transformedProducts.length);
       setProducts(transformedProducts);
     } else {
