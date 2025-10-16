@@ -24,8 +24,8 @@ export default function NewProductCatalog({
   statusSteps: string[];
   nextPage?: string;
 }) {
-  // Fetch only active products for merchant catalog
-  const { data } = useFetch(`/products/all?status=active`, 0);
+  // Fetch variants from the same endpoint as admin
+  const { data } = useFetch(`/inventory/products/variants?page=1&limit=100`, 0);
   const { products, setProducts } = useProductCatalogStore();
 
   useEffect(() => {
